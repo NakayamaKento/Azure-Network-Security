@@ -166,7 +166,7 @@
                     }
                 },
                 "templateLink": {
-                "uri":"https://raw.githubusercontent.com/Azure/Azure-Network-Security/master/Lab%20Templates/Lab%20Template%20-%20Azure%20Firewall%20Forced%20Tunnel%20Lab/Templates/Linked%20Templates/azfwConnectionsLinkedTemplate.json",
+                "uri":"https://raw.githubusercontent.com/NakayamaKento/Azure-Network-Security/refs/heads/master/Lab%20Templates/Lab%20Template%20-%20Azure%20Firewall%20Forced%20Tunnel%20Lab/Templates/Linked%20Templates/azfwConnectionsLinkedTemplate.json",
                 "contentVersion":"1.0.0.0"
                 }
             }
