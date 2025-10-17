@@ -34,19 +34,6 @@
             "metadata": {
                 "description": "Shared key (PSK) for IPSec tunnel"
             }
-        },
-        "storageAccountName": {
-            "type": "string",
-            "defaultValue": "kenakay20251016",
-            "metadata": {
-                "description": "Storage account name for deployment script. Must be between 3 and 24 characters in length and use numbers and lower-case letters only."
-            }
-        },
-        "storageAccountKey": {
-            "type": "secureString",
-            "metadata": {
-                "description": "Storage account key for deployment script."
-            }
         }
     },
     "variables": {
@@ -65,19 +52,6 @@
             "location": "[deployment().location]",
             "name": "[parameters('resourceGroup2')]",
             "apiVersion": "2022-05-01"
-        },
-        {
-            "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2020-10-01-preview",
-            "name": "[variables('roleAssignmentId')]",
-            "dependsOn": [
-                "azureLinkedTemplate"
-            ],
-            "properties": {
-                "roleDefinitionId": "[variables('contributorRoleDefinitionId')]",
-                "principalId": "[reference('azureLinkedTemplate').outputs.userMIPrincipalID.value]",
-                "principalType": "ServicePrincipal"
-            }
         },
         {
             "type": "Microsoft.Resources/deployments",
@@ -201,14 +175,6 @@
         "workspaceResourceID": {
             "type": "string",
             "value": "[reference('azureLinkedTemplate').outputs.workspaceResourceID.value]"
-        },
-        "userMIPrincipalID": {
-            "type": "string",
-            "value": "[reference('azureLinkedTemplate').outputs.userMIPrincipalID.value]"
-        },
-        "userMIResourceID": {
-            "type": "string",
-            "value": "[reference('azureLinkedTemplate').outputs.userMIResourceID.value]"
         },
         "onPremVNGResourceID": {
             "type": "string",
