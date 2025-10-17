@@ -154,15 +154,6 @@
                     },
                     "onPremLNG": {
                         "value": "[reference('onPremLinkedTemplate').outputs.onPremLNGResourceID.value]"
-                    },
-                    "userMI": {
-                        "value": "[reference('azureLinkedTemplate').outputs.userMIResourceID.value]"
-                    },
-                    "storageAccountName": {
-                        "value": "[parameters('storageAccountName')]"
-                    },
-                    "storageAccountKey": {
-                        "value": "[parameters('storageAccountKey')]"
                     }
                 },
                 "templateLink": {

@@ -19,21 +19,6 @@
         },
         "onPremLNG": {
             "type": "string"
-        },
-        "userMI": {
-            "type": "string"
-        },
-        "storageAccountName": {
-            "type": "string",
-            "metadata": {
-                "description": "Storage account name for deployment script. Must be between 3 and 24 characters in length and use numbers and lower-case letters only."
-            }
-        },
-        "storageAccountKey": {
-            "type": "secureString",
-            "metadata": {
-                "description": "Storage account key for deployment script."
-            }
         }
     },
     "variables": {
@@ -80,39 +65,6 @@
                 "routingWeight": 0,
                 "sharedKey": "[parameters('sharedKey')]",
                 "enableBGP": true
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deploymentScripts",
-            "apiVersion": "2020-10-01",
-            "name": "[variables('scriptName')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/connections', variables('connectionName1'))]",
-                "[resourceId('Microsoft.Network/connections', variables('connectionName2'))]"
-            ],
-            "identity": {
-                "type": "UserAssigned",
-                "userAssignedIdentities": {
-                    "[parameters('userMI')]": {
-                    }
-                }
-            },
-            "kind": "AzurePowerShell",
-            "properties": {
-                "forceUpdateTag": "2",
-                "azPowerShellVersion": "8.0",
-                "scriptContent": "
-                    $LocalGateway = Get-AzLocalNetworkGateway -Name 'lgw-onprem-network' -ResourceGroupName 'rg-fw-onprem'
-                    $VirtualGateway = Get-AzVirtualNetworkGateway -Name 'vgw-vnet-hub-secured' -ResourceGroupName 'rg-fw-azure'
-                    Set-AzVirtualNetworkGatewayDefaultSite -GatewayDefaultSite $LocalGateway -VirtualNetworkGateway $VirtualGateway",
-                "timeout": "PT5M",
-                "cleanupPreference": "OnSuccess",
-                "retentionInterval": "P1D",
-                "storageAccountSettings": {
-                    "storageAccountName": "[parameters('storageAccountName')]",
-                    "storageAccountKey": "[parameters('storageAccountKey')]"
-                }
             }
         }
     ]
