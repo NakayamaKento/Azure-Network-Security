@@ -25,7 +25,6 @@
         },
         "storageAccountName": {
             "type": "string",
-            "defaultValue": "kenakay20251016",
             "metadata": {
                 "description": "Storage account name for deployment script. Must be between 3 and 24 characters in length and use numbers and lower-case letters only."
             }
