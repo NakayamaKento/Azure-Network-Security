@@ -22,6 +22,19 @@
         },
         "userMI": {
             "type": "string"
+        },
+        "storageAccountName": {
+            "type": "string",
+            "defaultValue": "kenakay20251016",
+            "metadata": {
+                "description": "Storage account name for deployment script. Must be between 3 and 24 characters in length and use numbers and lower-case letters only."
+            }
+        },
+        "storageAccountKey": {
+            "type": "secureString",
+            "metadata": {
+                "description": "Storage account key for deployment script."
+            }
         }
     },
     "variables": {
@@ -32,7 +45,7 @@
         "connectionName1": "[concat('cn-', variables('localNetworkGatewayName2'),'-to-', variables('gatewayHubName'))]",
         "connectionName2": "[concat('cn-', variables('localNetworkGatewayName1'),'-to-', variables('gatewayRemoteName'))]",
         "scriptName": "PowerShellDefaultSite"
-   },
+    },
     "resources": [
         {
             "type": "Microsoft.Network/connections",
@@ -76,8 +89,8 @@
             "name": "[variables('scriptName')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                    "[resourceId('Microsoft.Network/connections', variables('connectionName1'))]",
-                    "[resourceId('Microsoft.Network/connections', variables('connectionName2'))]"
+                "[resourceId('Microsoft.Network/connections', variables('connectionName1'))]",
+                "[resourceId('Microsoft.Network/connections', variables('connectionName2'))]"
             ],
             "identity": {
                 "type": "UserAssigned",
@@ -96,7 +109,11 @@
                     Set-AzVirtualNetworkGatewayDefaultSite -GatewayDefaultSite $LocalGateway -VirtualNetworkGateway $VirtualGateway",
                 "timeout": "PT5M",
                 "cleanupPreference": "OnSuccess",
-                "retentionInterval": "P1D"
+                "retentionInterval": "P1D",
+                "storageAccountSettings": {
+                    "storageAccountName": "[parameters('storageAccountName')]",
+                    "storageAccountKey": "[parameters('storageAccountKey')]"
+                }
             }
         }
     ]
